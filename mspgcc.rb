@@ -1,63 +1,69 @@
 require 'formula'
 
-class Msp430Binutils < Formula
-  url 'http://ftpmirror.gnu.org/binutils/binutils-2.21.1a.tar.bz2'
-  sha1 '525255ca6874b872540c9967a1d26acfbc7c8230'
-
-  def patches
-    'http://downloads.sourceforge.net/project/mspgcc/Patches/binutils-2.21.1a/msp430-binutils-2.21.1a-20120406.patch'
-  end
-end
-
-class Msp430Gcc < Formula
-  url 'http://ftpmirror.gnu.org/gcc/gcc-4.6.3/gcc-core-4.6.3.tar.bz2'
-  sha1 'eaefb90df5a833c94560a8dda177bd1e165c2a88'
-
-  def patches
-    [
-      'http://downloads.sourceforge.net/project/mspgcc/Patches/gcc-4.6.3/msp430-gcc-4.6.3-20120406.patch',
-      'http://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-gcc-4.6.3-20120406-sf3540953.patch',
-      'http://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-gcc-4.6.3-20120406-sf3559978.patch'
-    ]
-  end
-end
-
-class Msp430Gdb < Formula
-  url 'http://ftpmirror.gnu.org/gdb/gdb-7.2a.tar.bz2'
-  sha1 '14daf8ccf1307f148f80c8db17f8e43f545c2691'
-
-  def patches
-    [
-      'http://downloads.sourceforge.net/project/mspgcc/Patches/gdb-7.2a/msp430-gdb-7.2a-20111205.patch',
-
-      # fixes "non-void function 'get_stop_addr' should return a value" errors
-      DATA
-    ]
-  end
-end
-
-class Msp430mcu < Formula
-  url 'http://downloads.sourceforge.net/project/mspgcc/msp430mcu/msp430mcu-20120406.tar.bz2'
-  sha1 'c096eec84f0f287c45db713a550ec50c518fa065'
-
-  def patches
-    'http://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430mcu-20120406-sf3522088.patch'
-  end
-end
-
-class Msp430Libc < Formula
-  url 'http://downloads.sourceforge.net/project/mspgcc/msp430-libc/msp430-libc-20120224.tar.bz2'
-  sha1 'd01cf0db41bff1a0ab50644cbb11bc5a1d5be172'
-
-  def patches
-    'http://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-libc-20120224-sf3522752.patch'
-  end
-end
-
 class Mspgcc < Formula
   homepage 'http://mspgcc.sourceforge.net'
-  url 'http://downloads.sourceforge.net/project/mspgcc/mspgcc/mspgcc-20120406.tar.bz2'
+  url 'https://downloads.sourceforge.net/project/mspgcc/mspgcc/mspgcc-20120406.tar.bz2'
   sha1 'cc96a7233f0b1d2c106eff7db6fc00e4ed9039a8'
+
+  resource "Msp430Binutils" do
+    url 'http://ftpmirror.gnu.org/binutils/binutils-2.21.1a.tar.bz2'
+    sha1 '525255ca6874b872540c9967a1d26acfbc7c8230'
+  end
+
+  resource "Msp430BinutilsPatch" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/binutils-2.21.1a/msp430-binutils-2.21.1a-20120406.patch'
+    sha1 'bb8f3a0361e52b9df9e877541d875d0eb1113e66'
+  end
+
+  resource "Msp430Gcc" do
+    url 'http://ftpmirror.gnu.org/gcc/gcc-4.6.3/gcc-core-4.6.3.tar.bz2'
+    sha1 'eaefb90df5a833c94560a8dda177bd1e165c2a88'
+  end
+
+  resource "Msp430GccPatch1" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/gcc-4.6.3/msp430-gcc-4.6.3-20120406.patch'
+    sha1 '698ac224e7c1a5661652948a347531b27d580eca'
+  end
+
+  resource "Msp430GccPatch2" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-gcc-4.6.3-20120406-sf3540953.patch'
+    sha1 '9de4e74d8ceb2005409e03bf671e619f2e060082'
+  end
+
+  resource "Msp430GccPatch3" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-gcc-4.6.3-20120406-sf3559978.patch'
+    sha1 '3721d13fd9a19df60fe356e082e6cea4ea637dbc'
+  end
+
+  resource "Msp430Gdb" do
+    url 'http://ftpmirror.gnu.org/gdb/gdb-7.2a.tar.bz2'
+    sha1 '14daf8ccf1307f148f80c8db17f8e43f545c2691'
+  end
+
+  resource "Msp430GdbPatch" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/gdb-7.2a/msp430-gdb-7.2a-20111205.patch'
+    sha1 'd84c029a914a9e43533fb8afefb4db6061e007f4'
+  end
+
+  resource "Msp430mcu" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/msp430mcu/msp430mcu-20120406.tar.bz2'
+    sha1 'c096eec84f0f287c45db713a550ec50c518fa065'
+  end
+
+  resource "Msp430mcuPatch" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430mcu-20120406-sf3522088.patch'
+    sha1 '83d408fd08a1fd0b1d8ab2a300d6124423952ac4'
+  end
+
+  resource "Msp430Libc" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/msp430-libc/msp430-libc-20120224.tar.bz2'
+    sha1 'd01cf0db41bff1a0ab50644cbb11bc5a1d5be172'
+  end
+
+  resource "Msp430LibcPatch" do
+    url 'https://downloads.sourceforge.net/project/mspgcc/Patches/LTS/20120406/msp430-libc-20120224-sf3522752.patch'
+    sha1 '2ca4aea9b8dcd6a199303373a8a97c7a2dd4eef6'
+  end
 
   def install
     # add new binaries to path
@@ -69,7 +75,10 @@ class Mspgcc < Formula
             "--target=msp430"]
 
     ohai 'Building msp430-binutils'
-    Msp430Binutils.new.brew do
+    resource("Msp430Binutils").stage do
+      (Pathname.pwd).install resource("Msp430BinutilsPatch")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-binutils-2.21.1a-20120406.patch"
+
       # build outside of source directory
       binutils = Dir.pwd
       mkdir '../build' do
@@ -80,11 +89,20 @@ class Mspgcc < Formula
     end
 
     ohai 'Building msp430-gcc'
-    Msp430Gcc.new.brew do
+    resource("Msp430Gcc").stage do
+      (Pathname.pwd).install resource("Msp430GccPatch1")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-gcc-4.6.3-20120406.patch"
+      (Pathname.pwd).install resource("Msp430GccPatch2")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-gcc-4.6.3-20120406-sf3540953.patch"
+      (Pathname.pwd).install resource("Msp430GccPatch3")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-gcc-4.6.3-20120406-sf3559978.patch"
+
       # wget is not shipped with OS X
       inreplace './contrib/download_prerequisites', 'wget', 'curl -OL'
 
       # build prerequisites along with gcc (gmp, mpc, mpfr)
+      parent = "#{File.expand_path('..',Pathname.pwd)}"
+      ln_s parent, parent.gsub("--", "-")
       system './contrib/download_prerequisites'
 
       # build outside of source directory
@@ -97,7 +115,14 @@ class Mspgcc < Formula
     end
 
     ohai 'Building msp430-gdb'
-    Msp430Gdb.new.brew do
+    resource("Msp430Gdb").stage do
+      (Pathname.pwd).install resource("Msp430GdbPatch")
+      # fixes "non-void function 'get_stop_addr' should return a value" errors
+      inreplace 'msp430-gdb-7.2a-20111205.patch', /if \(storage_needed < 0\)\n\+    return;/m, "if (storage_needed < 0)\n+    return 0;"
+      inreplace 'msp430-gdb-7.2a-20111205.patch', /if \(storage_needed == 0\)\n\+    {\n\+      return;/m, "if (storage_needed == 0)\n+    {\n+      return 0;"
+      inreplace 'msp430-gdb-7.2a-20111205.patch', /if \(number_of_symbols < 0\)\n\+    return;/m, "if (number_of_symbols < 0)\n+    return 0;"
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-gdb-7.2a-20111205.patch"
+
       # build outside of source directory
       gdb = Dir.pwd
       mkdir '../build' do
@@ -108,13 +133,19 @@ class Mspgcc < Formula
     end
 
     ohai 'Building msp430mcu'
-    Msp430mcu.new.brew do
+    resource("Msp430mcu").stage do
+      (Pathname.pwd).install resource("Msp430mcuPatch")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430mcu-20120406-sf3522088.patch"
+
       ENV['MSP430MCU_ROOT'] = Dir.pwd
       system './scripts/install.sh', prefix
     end
 
     ohai 'Building msp430-libc'
-    Msp430Libc.new.brew do
+    resource("Msp430Libc").stage do
+      (Pathname.pwd).install resource("Msp430LibcPatch")
+      safe_system "/usr/bin/patch", "-g", "0", "-f", "-d", Pathname.pwd, "-p1", "-i", "msp430-libc-20120224-sf3522752.patch"
+
       system './configure', "--prefix=#{prefix}"
       cd 'src' do
         system 'make'
@@ -123,31 +154,3 @@ class Mspgcc < Formula
     end
   end
 end
-
-__END__
-diff --git gdb-7.2a.orig/sim/msp430/interp.c gdb-7.2a/sim/msp430/interp.c
-index 5778c89..077e6ea 100644
---- gdb-7.2a.orig/sim/msp430/interp.c
-+++ gdb-7.2a/sim/msp430/interp.c
-@@ -1880,18 +1880,18 @@ get_stop_addr (struct bfd *abfd)
-   storage_needed = bfd_get_symtab_upper_bound (abfd);
- 
-   if (storage_needed < 0)
--    return;
-+    return 0;
- 
-   if (storage_needed == 0)
-     {
--      return;
-+      return 0;
-     }
- 
-   symbol_table = (asymbol **) xmalloc (storage_needed);
-   number_of_symbols = bfd_canonicalize_symtab (abfd, symbol_table);
- 
-   if (number_of_symbols < 0)
--    return;
-+    return 0;
- 
-   for (i = 0; i < number_of_symbols; i++)
-     {
